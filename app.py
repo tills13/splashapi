@@ -6,6 +6,8 @@ import os
 
 app = Flask(__name__)
 conn = psycopg2.connect(os.environ["DATABASE_URL"])
+#conn = psycopg2.connect("dbname=photos user=_www")
+#conn = psycopg2.connect("postgres://jfvfqukbyqwhhq:vqyEYaeOAdIW3OJPB-3MbMrm3u@ec2-54-225-243-113.compute-1.amazonaws.com:5432/ddnibjsm52891p")
 cur = conn.cursor()
 
 @app.route("/photos/splashbase/random")
