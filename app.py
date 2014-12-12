@@ -12,6 +12,7 @@ cur = conn.cursor()
 def splashbase_random():
 	return make_response(urllib.urlopen("http://www.splashbase.co/api/v1/images/random").read(), 200, {"Access-Control-Allow-Origin": "*", "Content-Type": "application/json"})
 
+@app.route("/")
 @app.route("/photos/v1.0/random", methods=["GET"])
 def get_random():
 	cur.execute("SELECT * FROM photos ORDER BY random() LIMIT 1;")
