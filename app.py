@@ -6,8 +6,6 @@ import os
 
 app = Flask(__name__)
 conn = psycopg2.connect(os.environ["DATABASE_URL"])
-#conn = psycopg2.connect("dbname=photos user=_www")
-#conn = psycopg2.connect("postgres://jfvfqukbyqwhhq:vqyEYaeOAdIW3OJPB-3MbMrm3u@ec2-54-225-243-113.compute-1.amazonaws.com:5432/ddnibjsm52891p")
 cur = conn.cursor()
 
 @app.route("/photos/splashbase/random")
@@ -20,7 +18,18 @@ def get_random():
 	cur.execute("SELECT * FROM photos ORDER BY random() LIMIT 1;")
 	db_query = cur.fetchone()
 
-	json = jsonify({
+	return wrap_response(wrap_db_query(db_query), 200)
+
+@app.route("/photos/v1.0/image/<int:image_id>", methods=["GET"])  
+def get_image(image_id):
+	cur.execute("SELECT * FROM photos WHERE photo_id=%s;", [image_id])
+	db_query = cur.fetchone()
+	if (db_query == None): abort(404)
+
+	return wrap_response(wrap_db_query(db_query), 200)
+
+def wrap_db_query(db_query):
+	return jsonify({
 		'id': db_query[0],
 		'photo': {
 			'url': db_query[1],
@@ -30,33 +39,13 @@ def get_random():
 		},
 		'author': {
 			'name': db_query[2],
-			'author_url': db_query[3]
+			'url': db_query[3]
 		}
 	})
 
-	return make_response(json, 200, {"Access-Control-Allow-Origin": "*"})
+def wrap_response(body, response_code):
+	return make_response(body, response_code, {"Access-Control-Allow-Origin": "*", "Content-Type": "application/json"})
 
-@app.route("/photos/v1.0/image/<int:image_id>", methods=["GET"])  
-def get_image(image_id):
-	cur.execute("SELECT (photo_id,photo_url,photo_average_color,photo_width,photo_height,photo_author,photo_author_url) FROM photos WHERE photo_id=%s;", [image_id])
-	db_query = cur.fetchone()
-	if (db_query == None): abort(404)
-
-	json = jsonify({
-		'id': db_query[0],
-		'photo': {
-			'url': db_query[1],
-			'color': db_query[2],
-			'width': db_query[3],
-			'height': db_query[4]
-		},
-		'author': {
-			'name': db_query[5],
-			'author_url': db_query[6]
-		}
-	})
-
-	return make_response(json, 200, {"Access-Control-Allow-Origin": "*"})
 
 #error handling
 @app.errorhandler(404)
