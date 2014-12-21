@@ -3,9 +3,11 @@ from flask import *
 import urllib
 import psycopg2
 import os
+import json
 
 app = Flask(__name__)
-conn = psycopg2.connect(os.environ["DATABASE_URL"])
+#conn = psycopg2.connect(os.environ["DATABASE_URL"])
+conn = psycopg2.connect("dbname=photos user=_www");
 cur = conn.cursor()
 
 @app.route("/photos/splashbase/random")
@@ -18,7 +20,7 @@ def get_random():
 	cur.execute("SELECT * FROM photos ORDER BY random() LIMIT 1;")
 	db_query = cur.fetchone()
 
-	return wrap_response(wrap_db_query(db_query), 200)
+	return wrap_response(json.JSONEncoder().encode(wrap_db_query(db_query)), 200)
 
 @app.route("/photos/v1.0/image/<int:image_id>", methods=["GET"])  
 def get_image(image_id):
@@ -26,10 +28,22 @@ def get_image(image_id):
 	db_query = cur.fetchone()
 	if (db_query == None): abort(404)
 
-	return wrap_response(wrap_db_query(db_query), 200)
+	return wrap_response(json.JSONEncoder().encode(wrap_db_query(db_query)), 200)
+
+@app.route("/photos/v1.0/list")
+def get_list():
+	cur.execute("SELECT * FROM photos;");
+
+	response = []
+	db_query = cur.fetchone()
+	while db_query:
+		response.append(wrap_db_query(db_query));
+		db_query = cur.fetchone()
+	
+	return wrap_response(json.JSONEncoder().encode(response), 200)
 
 def wrap_db_query(db_query):
-	return jsonify({
+	return {
 		'id': db_query[0],
 		'photo': {
 			'url': db_query[1],
@@ -41,11 +55,10 @@ def wrap_db_query(db_query):
 			'name': db_query[2],
 			'url': db_query[3]
 		}
-	})
+	}
 
 def wrap_response(body, response_code):
 	return make_response(body, response_code, {"Access-Control-Allow-Origin": "*", "Content-Type": "application/json"})
-
 
 #error handling
 @app.errorhandler(404)
