@@ -6,8 +6,8 @@ import os
 import json
 
 app = Flask(__name__)
-conn = psycopg2.connect(os.environ["DATABASE_URL"])
-#conn = psycopg2.connect("dbname=photos user=_www");
+#conn = psycopg2.connect(os.environ["DATABASE_URL"])
+conn = psycopg2.connect("dbname=photos user=_www");
 cur = conn.cursor()
 
 @app.route("/photos/splashbase/random")
@@ -30,9 +30,12 @@ def get_image(image_id):
 
 	return wrap_response(json.JSONEncoder().encode(wrap_db_query(db_query)), 200)
 
-@app.route("/photos/v1.0/list")
+@app.route("/photos/v1.0/list", methods=["GET"])
 def get_list():
-	cur.execute("SELECT * FROM photos;");
+	count = 15 if "count" not in request.args else min(int(request.args["count"]), 20)
+	after = 0 if "after" not in request.args else request.args["after"]
+
+	cur.execute("SELECT * FROM photos WHERE photo_id > %s ORDER BY photo_id ASC LIMIT %s;", [after, count]);
 
 	response = []
 	db_query = cur.fetchone()
