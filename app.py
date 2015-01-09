@@ -6,8 +6,8 @@ import os
 import json
 
 app = Flask(__name__)
-#conn = psycopg2.connect(os.environ["DATABASE_URL"])
-conn = psycopg2.connect("dbname=photos user=_www");
+conn = psycopg2.connect(os.environ["DATABASE_URL"])
+#conn = psycopg2.connect("dbname=photos user=_www");
 cur = conn.cursor()
 
 @app.route("/photos/splashbase/random")
