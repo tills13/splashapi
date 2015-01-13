@@ -26,7 +26,7 @@ function fetchPhotos() {
 			var author = $("<div></div>");
 			author.addClass("author-info");
 			author.text(element.author.name);
-			if (percentWhite(element.photo.color) < 65) author.css("color", "white");
+			if (percentWhite(element.photo.color) < 35) author.css("color", "white");
 
 			var image = $("<img>");
 
