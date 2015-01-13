@@ -1,0 +1,37 @@
+body { margin: 0; padding: 0; }
+.image-container { position: relative; height: 500px; width: 1000px; margin: 18px auto; overflow: hidden; z-index: 0; }
+
+.image { 
+	position: relative;
+	width: 100%; 
+	border: none;
+	opacity: 0;
+	transition: all 1s ease; 
+	z-index: 0;
+}
+
+.author-info {
+	display: flex; display: -webkit-flex;
+	position: absolute; 
+	top: 0; left: 0; bottom: 0; right: 0;
+	align-items: center; -webkit-align-items: center;
+	justify-content: center; -webkit-justify-content: center;
+	
+	font: 100 50px "Open Sans";
+	color: #2B303B; 
+	
+	opacity: 0;
+	transition: all 1s ease;
+	z-index: 2;
+}
+
+.fader {
+	position: absolute; 
+	top: 0; left: 0; bottom: 0; right: 0;
+	opacity: 0;
+	transition: all 1s ease;
+	z-index: 1;
+}
+
+.image-container:hover .author-info { opacity: 1; }
+.image-container:hover .fader { opacity: 0.75; }

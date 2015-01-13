@@ -10,11 +10,13 @@ conn = psycopg2.connect(os.environ["DATABASE_URL"])
 #conn = psycopg2.connect("dbname=photos user=_www");
 cur = conn.cursor()
 
+@app.route("/")
+def root(): return app.send_static_file("index.html");
+
 @app.route("/photos/splashbase/random")
 def splashbase_random():
 	return make_response(urllib.urlopen("http://www.splashbase.co/api/v1/images/random").read(), 200, {"Access-Control-Allow-Origin": "*", "Content-Type": "application/json"})
 
-@app.route("/")
 @app.route("/photos/v1.0/random", methods=["GET"])
 def get_random():
 	cur.execute("SELECT * FROM photos ORDER BY random() LIMIT 1;")
@@ -69,4 +71,4 @@ def not_found_handler(error):
 	return make_response(jsonify({'error': 'image not found'}), 404)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,threaded=True)
