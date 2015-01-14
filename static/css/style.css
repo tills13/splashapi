@@ -1,5 +1,9 @@
 body { margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
 a { text-decoration: none; }
+
+body h3 { font: 100 50px "Open Sans"; color: #2B303B; margin: 0; }
+.api-example { font: 100 20px "Open Sans"; color: #2B303B; margin: 18; }
+
 .image-container { position: relative; height: 500px; width: 1000px; margin: 18px auto; overflow: hidden; z-index: 0; }
 
 .image { 
