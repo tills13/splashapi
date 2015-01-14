@@ -1,4 +1,5 @@
-body { margin: 0; padding: 0; }
+body { margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; }
 .image-container { position: relative; height: 500px; width: 1000px; margin: 18px auto; overflow: hidden; z-index: 0; }
 
 .image { 
@@ -16,14 +17,13 @@ body { margin: 0; padding: 0; }
 	top: 0; left: 0; bottom: 0; right: 0;
 	align-items: center; -webkit-align-items: center;
 	justify-content: center; -webkit-justify-content: center;
-	
-	font: 100 50px "Open Sans";
-	color: #2B303B; 
-	
-	opacity: 0;
-	transition: all 1s ease;
+	flex-direction: column; -webkit-flex-direction: column; 
+
 	z-index: 2;
 }
+
+.author-info *:first-child { position: relative; right: 18px; font: 100 50px "Open Sans"; opacity: 0; transition: right 0.5s ease, opacity 0.5s ease; }
+.author-info *:last-child { position: relative; right: -18px; font: 100 20px "Open Sans"; opacity: 0; transition: right 0.5s ease 0.3s, opacity 0.5s ease 0.5s; }
 
 .fader {
 	position: absolute; 
@@ -34,4 +34,5 @@ body { margin: 0; padding: 0; }
 }
 
 .image-container:hover .author-info { opacity: 1; }
+.image-container:hover .author-info * { right: 0; opacity: 1; }
 .image-container:hover .fader { opacity: 0.75; }

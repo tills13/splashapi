@@ -1,10 +1,17 @@
 var after = 0;
 var container = null;
 var fetching = false;
+var print = console.log
 
-function percentWhite(color) {
+function percentWhiteHex(color) {
 	var groups = color.match(/#?([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})/)
 	return ((parseInt(groups[1], 16) + parseInt(groups[2], 16) + parseInt(groups[3], 16)) / (255 * 3) * 100)
+}
+
+function percentWhiteRGB(color) {
+	var groups = color.match(/rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})(, ?\d)?\)/)
+	console.log(groups)
+	return ((parseInt(groups[1]) + parseInt(groups[2]) + parseInt(groups[3])) / (255 * 3) * 100)
 }
 
 function fetchPhotos() {
@@ -24,9 +31,27 @@ function fetchPhotos() {
 			fader.css({ background: element.photo.color });
 
 			var author = $("<div></div>");
+			var author_name = $("<div></div>"), author_url = $("<a></a>");
+
 			author.addClass("author-info");
-			author.text(element.author.name);
-			if (percentWhite(element.photo.color) < 35) author.css("color", "white");
+			author_name.text(element.author.name);
+			author_url.text(element.author.url);
+			author_url.attr("href", "https://unsplash.com" + element.author.url);
+
+			if (percentWhiteHex(element.photo.color) < 55) {
+				author_name.css("color", "floralwhite");
+				author_url.css("color", "floralwhite");
+
+				author_url.css("border-bottom", "1px dotted floralwhite");
+			} else {
+				author_name.css("color", "#2B303B");
+				author_url.css("color", "#2B303B");
+
+				author_url.css("border-bottom", "1px dotted #2b303b");
+			}
+
+			author.append(author_name);
+			author.append(author_url);
 
 			var image = $("<img>");
 
@@ -38,6 +63,7 @@ function fetchPhotos() {
 			image_container.append(fader);
 			image_container.append(author);
 			image_container.append(image);
+
 			container.append(image_container);
 		});
 
