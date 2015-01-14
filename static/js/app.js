@@ -2,15 +2,8 @@ var after = 0;
 var container = null;
 var fetching = false;
 
-function blah(color) {
-	var r = 255, g = 255, b = 255;
-	var groups = color.match(/#([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})/)
-
-	return { r: r - parseInt(groups[1], 16), g: g - parseInt(groups[2], 16), b: b - parseInt(groups[3], 16) }
-}
-
 function percentWhite(color) {
-	var groups = color.match(/#([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})/)
+	var groups = color.match(/#?([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})([0-9A-Fa-f]{2})/)
 	return ((parseInt(groups[1], 16) + parseInt(groups[2], 16) + parseInt(groups[3], 16)) / (255 * 3) * 100)
 }
 
@@ -33,7 +26,7 @@ function fetchPhotos() {
 			var author = $("<div></div>");
 			author.addClass("author-info");
 			author.text(element.author.name);
-			if (percentWhite(element.photo.color) < 50) author.css("color", "white");
+			if (percentWhite(element.photo.color) < 35) author.css("color", "white");
 
 			var image = $("<img>");
 
