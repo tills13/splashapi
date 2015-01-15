@@ -20,27 +20,27 @@ function fetchPhotos() {
 	//$.get("http://localhost:5000/photos/v1.0/list?count=5&after=" + after)
 	$.get("https://splashapi.herokuapp.com/photos/v1.0/list?count=5&after=" + after)
 	 .success(function(data) {
-		$.each(data, function(index, element) {
+		$.each(data, function(index, photo) {
 			var image_container = $("<div></div>");
 			image_container.addClass("image-container");
-			image_container.attr("id", element.id);
-			image_container.css({ background: element.photo.color });
+			image_container.attr("id", photo.id);
+			image_container.css({ background: photo.color });
 
 			var fader = $("<div></div>"), image_info = $("<span></span>");
 			fader.addClass("fader");
-			fader.css({ background: element.photo.color });
+			fader.css({ background: photo.color });
 			image_info.addClass("image-info");
-			image_info.text("#" + element.id);
+			image_info.text("#" + photo.id);
 
 			var author = $("<div></div>");
 			var author_name = $("<div></div>"), author_url = $("<a></a>");
 
 			author.addClass("author-info");
-			author_name.text(element.author.name);
-			author_url.text(element.author.url);
-			author_url.attr("href", "https://unsplash.com" + element.author.url);
+			author_name.text(photo.author.name);
+			author_url.text(photo.author.url);
+			author_url.attr("href", "https://unsplash.com" + photo.author.url);
 
-			if (percentWhiteHex(element.photo.color) < 55) {
+			if (percentWhiteHex(photo.color) < 55) {
 				author_name.css("color", "floralwhite");
 				author_url.css("color", "floralwhite");
 				image_info.css("color", "floralwhite");
@@ -60,7 +60,7 @@ function fetchPhotos() {
 			var image = $("<img>");
 
 			image.addClass("image");
-			image.attr("src", element.photo.url);
+			image.attr("src", photo.url);
 			image.load(function() { $(this).css({ opacity: 1 }); });
 			
 			image_container.append(fader);

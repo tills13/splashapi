@@ -50,12 +50,10 @@ def get_list():
 def wrap_db_query(db_query):
 	return {
 		'id': db_query[0],
-		'photo': {
-			'url': db_query[1],
-			'color': db_query[6],
-			'width': db_query[5],
-			'height': db_query[4]
-		},
+		'url': db_query[1],
+		'color': db_query[6],
+		'width': db_query[5],
+		'height': db_query[4]
 		'author': {
 			'name': db_query[2],
 			'url': db_query[3]
