@@ -6,9 +6,31 @@
 		<script type="text/javascript" src="static/js/app.js"></script>
 	</head>
 	<body align="center">
-		<h3>unsplash api</h3>
+		<h3>Unsplash API</h3>
 		<a class="api-example" href="/photos/v1.0/random"><span>random</span></a>
 		<a class="api-example" href="/photos/v1.0/list"><span>list</span></a>
 		<a class="api-example" href="/photos/v1.0/image/170"><span>image</span></a>
+		<input id="image" type="number" placeholder="#" autocomplete="off">
+
+		<script type="text/javascript">
+			var input = document.getElementById("image");
+			input.addEventListener("keyup", function() {
+				var result = document.getElementById(this.value);
+
+				if (result) {
+					var images = document.getElementsByClassName("image-container");
+
+					for (var i = 0; i < images.length; i++) {
+						if (images[i].id != this.value) images[i].style.display = "none";
+					}
+				} else {
+					var images = document.getElementsByClassName("image-container");
+
+					for (var i = 0; i < images.length; i++) {
+						if (images[i].id != this.value) images[i].style.display = "block";
+					}
+				}
+			}, false);
+		</script>
 	</body>
 </html>
