@@ -69,4 +69,4 @@ def not_found_handler(error):
 	return make_response(jsonify({'error': 'image not found'}), 404)
 
 if __name__ == '__main__':
-    app.run(debug=True,threaded=True)
+    app.run(debug=False,threaded=False)
