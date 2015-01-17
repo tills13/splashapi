@@ -37,7 +37,7 @@ def get_list():
 	count = 15 if "count" not in request.args else min(int(request.args["count"]), 20)
 	after = 0 if "after" not in request.args else request.args["after"]
 
-	cur.execute("SELECT * FROM photos WHERE photo_id > %s ORDER BY photo_id ASC LIMIT %s;", [after, count]);
+	cur.execute("SELECT * FROM photos WHERE photo_id > %s ORDER BY photo_id DESC LIMIT %s;", [after, count]);
 
 	response = []
 	db_query = cur.fetchone()
