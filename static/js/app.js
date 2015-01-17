@@ -17,7 +17,6 @@ function fetchPhotos() {
 	if (fetching) return;
 	fetching = true;
 
-	//$.get("http://localhost:5000/photos/v1.0/list?count=5&after=" + after)
 	$.get("https://splashapi.herokuapp.com/photos/v1.0/list?count=5&after=" + after)
 	 .success(function(data) {
 		$.each(data, function(index, photo) {

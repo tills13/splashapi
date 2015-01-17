@@ -4,7 +4,7 @@ a { text-decoration: none; }
 body h3 { font: 100 50px "Open Sans"; color: #2B303B; margin: 0; margin-bottom: 18px; }
 .api-example { font: 100 20px "Open Sans"; color: #2B303B; margin: 18; text-transform: uppercase; }
 
-.image-container { position: relative; height: 500px; width: 95%; margin: 18px auto; overflow: hidden; z-index: 0; }
+.image-container { position: relative; max-height: 500px; width: 95%; margin: 18px auto; overflow: hidden; z-index: 0; }
 
 .image { 
 	position: relative;
@@ -39,6 +39,7 @@ body h3 { font: 100 50px "Open Sans"; color: #2B303B; margin: 0; margin-bottom: 
 
 .image-info { position: absolute; bottom: 0; right: 0; padding: 18px; font: 100 25px "Open Sans"; z-index: 2 }
 
+.image-container:hover { max-height: 750px; }
 .image-container:hover .author-info { opacity: 1; }
 .image-container:hover .author-info * { right: 0; opacity: 1; }
 .image-container:hover .fader { opacity: 0.75; }
