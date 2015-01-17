@@ -35,9 +35,10 @@ def get_image(image_id):
 @app.route("/photos/v1.0/list", methods=["GET"])
 def get_list():
 	count = 15 if "count" not in request.args else min(int(request.args["count"]), 20)
-	after = 0 if "after" not in request.args else request.args["after"]
+	after = 0 if "after" not in request.args else int(request.args["after"])
 
-	cur.execute("SELECT * FROM photos WHERE photo_id > %s ORDER BY photo_id DESC LIMIT %s;", [after, count]);
+	if (after == 0): cur.execute("SELECT * FROM photos ORDER BY photo_id DESC LIMIT %s;", [count]);
+	else: cur.execute("SELECT * FROM photos WHERE photo_id < %s ORDER BY photo_id DESC LIMIT %s;", [after, count]);
 
 	response = []
 	db_query = cur.fetchone()
