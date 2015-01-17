@@ -4,7 +4,7 @@ a { text-decoration: none; }
 body h3 { font: 100 50px "Open Sans"; color: #2B303B; margin: 0; margin-bottom: 18px; }
 .api-example { font: 100 20px "Open Sans"; color: #2B303B; margin: 18; text-transform: uppercase; }
 
-.image-container { position: relative; max-height: 500px; width: 95%; margin: 18px auto; overflow: hidden; z-index: 0; }
+.image-container { position: relative; max-height: 500px; width: 95%; margin: 18px auto; overflow: hidden; z-index: 0; transition: max-height 0.5s ease; }
 
 .image { 
 	position: relative;
