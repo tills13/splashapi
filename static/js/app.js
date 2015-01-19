@@ -9,7 +9,6 @@ function percentWhiteHex(color) {
 
 function percentWhiteRGB(color) {
 	var groups = color.match(/rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})(, ?\d)?\)/)
-	console.log(groups)
 	return ((parseInt(groups[1]) + parseInt(groups[2]) + parseInt(groups[3])) / (255 * 3) * 100)
 }
 

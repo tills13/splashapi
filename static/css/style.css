@@ -55,3 +55,7 @@ input#image {
 	border-radius: 2px;
 	outline: none;
 }
+
+@media only screen and (min-width : 1224px) {
+	.image-container { width: 65%; }
+};
