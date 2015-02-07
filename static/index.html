@@ -1,8 +1,10 @@
 <html>
 	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="static/css/style.css">
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script type="text/javascript" src="static/js/splashapi.js"></script>
 		<script type="text/javascript" src="static/js/app.js"></script>
 	</head>
 	<body align="center">
@@ -11,6 +13,14 @@
 		<a class="api-example" href="/photos/v1.0/list"><span>list</span></a>
 		<a class="api-example" href="/photos/v1.0/image/170"><span>image</span></a>
 		<input id="image" type="number" placeholder="#" autocomplete="off">
+
+		<div id="loader" align="center">
+			<div class="rect"></div>
+			<div class="rect"></div>
+			<div class="rect"></div>
+			<div class="rect"></div>
+			<div class="rect"></div>
+		</div>
 
 		<script type="text/javascript">
 			var input = document.getElementById("image");

@@ -1,13 +1,9 @@
 #!flask/bin/python
 from flask import *
-import urllib
-import psycopg2
-import os
-import json
+import urllib,psycopg2,os,json
 
 app = Flask(__name__)
 conn = psycopg2.connect(os.environ["DATABASE_URL"])
-#conn = psycopg2.connect("dbname=photos user=_www");
 cur = conn.cursor()
 
 @app.route("/")
