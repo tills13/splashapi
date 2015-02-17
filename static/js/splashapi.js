@@ -1,5 +1,4 @@
-//var baseURL = "https://splashapi.herokuapp.com";
-var baseURL = "http://localhost:5000";
+var baseURL = "https://splashapi.herokuapp.com";
 var randomURL = "/photos/v1.0/random";
 var listURL = "/photos/v1.0/list?count={%count}&after={%after}";
 var imageURL = "/photos/v1.0/image/{%id}";
