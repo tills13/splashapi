@@ -5,6 +5,11 @@ body h3 { font: 100 50px "Open Sans"; color: #2B303B; margin: 0; margin-bottom: 
 .api-example { font: 100 20px "Open Sans"; color: #2B303B; margin: 18; text-transform: uppercase; }
 
 .image-container { position: relative; max-height: 500px; width: 95%; margin: 18px auto; overflow: hidden; z-index: 0; transition: max-height 0.5s ease; }
+.tag.image-container { 
+	height: 500px; 
+	background-position: center center;
+	background-size: cover;
+}
 
 .image { 
 	position: relative;
@@ -44,8 +49,7 @@ body h3 { font: 100 50px "Open Sans"; color: #2B303B; margin: 0; margin-bottom: 
 .image-container:hover .author-info * { right: 0; opacity: 1; }
 .image-container:hover .fader { opacity: 0.75; }
 
-input#image {
-	width: 150px;
+input {
 	padding: 4.5 9;
 	vertical-align: baseline;
 	text-align: center;
@@ -55,6 +59,8 @@ input#image {
 	border-radius: 2px;
 	outline: none;
 }
+
+#image { width: 150px; }
 
 @media only screen and (min-width : 1224px) {
 	.image-container { width: 65%; }

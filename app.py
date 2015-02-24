@@ -3,11 +3,31 @@ from flask import *
 import urllib,psycopg2,os,json
 
 app = Flask(__name__)
+#conn = psycopg2.connect("host=localhost dbname=photos")
 conn = psycopg2.connect(os.environ["DATABASE_URL"])
 cur = conn.cursor()
 
+# static pages
+
 @app.route("/")
 def root(): return app.send_static_file("index.html");
+
+@app.route("/tag", methods=["GET","POST"])
+def tag(): 
+	print request.form
+	if (request.method == "GET"):
+		return app.send_static_file("tag.html")
+	else: 
+		if ("photo_id" not in request.form): return wrap_response(json.JSONEncoder().encode({ "result": False, "message": "photo doesn't exist" }), 200)
+		if ("photo_tag" not in request.form): return wrap_response(json.JSONEncoder().encode({ "result": False, "message": "tag is required" }), 200)
+
+		photo_id = request.form["photo_id"]
+		photo_tag = request.form["photo_tag"]
+
+		cur.execute("INSERT INTO tags VALUES(%s,%s);", [photo_id, photo_tag])
+		conn.commit()
+	return wrap_response(json.JSONEncoder().encode({ "result": True, "message": "success" }), 200)
+
 
 @app.route("/photos/splashbase/random")
 def splashbase_random():
