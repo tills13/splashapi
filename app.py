@@ -3,7 +3,6 @@ from flask import *
 import urllib,psycopg2,os,json
 
 app = Flask(__name__)
-#conn = psycopg2.connect("host=localhost dbname=photos")
 conn = psycopg2.connect(os.environ["DATABASE_URL"])
 cur = conn.cursor()
 
@@ -27,7 +26,6 @@ def tag():
 		cur.execute("INSERT INTO tags VALUES(%s,%s);", [photo_id, photo_tag])
 		conn.commit()
 	return wrap_response(json.JSONEncoder().encode({ "result": True, "message": "success" }), 200)
-
 
 @app.route("/photos/splashbase/random")
 def splashbase_random():
